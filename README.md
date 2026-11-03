@@ -42,3 +42,13 @@ launchctl kickstart -k gui/$(id -u)/local.mousekeys   # restart (after editing t
 launchctl bootout gui/$(id -u)/local.mousekeys        # stop
 cat /tmp/mousekeys.log                                # "Active: 4 inputs mapped" = working
 ```
+
+## Uninstall
+
+```bash
+launchctl bootout gui/$(id -u)/local.mousekeys        # stop it (deleting the binary alone doesn't)
+rm ~/Library/LaunchAgents/local.mousekeys.plist ~/.local/bin/mousekeys
+rm ~/.config/mousekeys.conf                           # optional: your mapping
+```
+
+Then System Settings → Privacy & Security → **Accessibility** → select `mousekeys` → **−**.
