@@ -1,12 +1,13 @@
-// mousekeys: map mouse buttons to Ctrl+Arrow. Event-driven, so it sits at 0% CPU when idle.
-//   mousekeys learn   press 4 inputs (for Ctrl+Up, Down, Left, Right) and save them to the config
+// mousekeys: map mouse buttons to Ctrl+Up/Left/Right. Event-driven, so it sits at 0% CPU when idle.
+//   mousekeys learn   press 3 inputs (for Ctrl+Up, Left, Right) and save them to the config
 //   mousekeys         run with the saved mapping (needs Accessibility permission)
 import CoreGraphics
 
 let configDir = String(cString: getenv("HOME")) + "/.config"
 let configPath = configDir + "/mousekeys.conf"
-let arrowKeys: [String: CGKeyCode] = ["left": 123, "right": 124, "down": 125, "up": 126]
-let learnOrder = ["up", "down", "left", "right"]
+// No "down": Ctrl+Down is never sent, so the input that used to trigger it keeps its normal action.
+let arrowKeys: [String: CGKeyCode] = ["left": 123, "right": 124, "up": 126]
+let learnOrder = ["up", "left", "right"]
 
 nonisolated(unsafe) var tap: CFMachPort?
 nonisolated(unsafe) var mapping: [String: CGKeyCode] = [:]
@@ -80,7 +81,7 @@ let learnCallback: CGEventTapCallBack = { _, type, event, _ in
 
 let learning = CommandLine.arguments.dropFirst().first == "learn"
 if learning {
-    print("Press the input for Ctrl+Up, then Ctrl+Down, Ctrl+Left, Ctrl+Right:")
+    print("Press the input for Ctrl+Up, then Ctrl+Left, Ctrl+Right:")
     fflush(stdout)
 } else if let f = fopen(configPath, "r") {
     // Config lines look like "button3 up".
