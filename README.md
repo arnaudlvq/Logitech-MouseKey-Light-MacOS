@@ -1,6 +1,6 @@
 # mousekeys
 
-Mouse buttons → Ctrl+Arrow (Mission Control, Spaces). ~4 MB RAM, 0% CPU when idle.
+Mouse buttons → Ctrl+Up/Left/Right (Mission Control, Spaces). Ctrl+Down is not mapped. ~4 MB RAM, 0% CPU when idle.
 
 ## Install
 
@@ -21,15 +21,14 @@ If no prompt shows (or after a reinstall it stays off): System Settings → Priv
 
 ```
 button4 up
-button3 down
 hscroll+ left
 hscroll- right
 ```
 
 Inputs: `button2` middle, `button3` back, `button4` forward, `hscroll+`/`hscroll-` wheel tilt.
-Actions: `up`, `down`, `left`, `right`.
+Actions: `up`, `left`, `right` (`down` is ignored).
 
-Or record it by pressing the buttons (for Up, Down, Left, Right, in that order):
+Or record it by pressing the buttons (for Up, Left, Right, in that order):
 
 ```bash
 ~/.local/bin/mousekeys learn
@@ -40,7 +39,7 @@ Or record it by pressing the buttons (for Up, Down, Left, Right, in that order):
 ```bash
 launchctl kickstart -k gui/$(id -u)/local.mousekeys   # restart (after editing the mapping)
 launchctl bootout gui/$(id -u)/local.mousekeys        # stop
-cat /tmp/mousekeys.log                                # "Active: 4 inputs mapped" = working
+cat /tmp/mousekeys.log                                # "Active: 3 inputs mapped" = working
 ```
 
 ## Uninstall
